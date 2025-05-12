@@ -1,3 +1,41 @@
 spring:
+  banner:
+    location: banner/banner.txt
   application:
     name: GetechnologiesMx
+  datasource:
+    url: jdbc:h2:mem:prueba
+    username: prueba
+    password: 1234
+    driver-class-name: org.h2.Driver
+    hikari:
+      connection-timeout: 60000
+    jpa:
+      format-sql: true
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          format_sql: true
+        javax:
+          persistence:
+            query:
+              timeout: 60000
+      database: postgresql
+      show-sql: true
+  h2:
+    console:
+      enabled: true
+server:
+  port: 8085
+  error:
+    include-stacktrace: never
+  address: localhost
+  tomcat:
+    connection-timeout: 40000
+    max-wait: 100000
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /

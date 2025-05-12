@@ -1,5 +1,7 @@
 package cu.rayner.getechnologiesmx.core.model;
 
+import cu.rayner.getechnologiesmx.core.dto.personaDto.PersonaDtoEstandar;
+import cu.rayner.getechnologiesmx.core.utils.Validacion;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -42,5 +44,26 @@ public class Persona {
 
     @OneToMany(mappedBy = "persona",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Factura> facturas;
+
+    public Persona(PersonaDtoEstandar personaDtoEstandar){
+        this.nombre = personaDtoEstandar.nombre();
+        this.apellidoPaterno = personaDtoEstandar.apellidoPaterno();
+        this.apellidoMaterno = personaDtoEstandar.apellidoMaterno();
+        this.identificacion = personaDtoEstandar.identificacion();
+    }
+
+    public Persona(PersonaDtoEstandar personaDtoEstandar, Long id){
+        this.id = id;
+        this.nombre = personaDtoEstandar.nombre();
+        this.apellidoPaterno = personaDtoEstandar.apellidoPaterno();
+        this.apellidoMaterno = personaDtoEstandar.apellidoMaterno();
+        this.identificacion = personaDtoEstandar.identificacion();
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void validar(){
+        Validacion.validarElemento(this);
+    }
 
 }
