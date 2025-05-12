@@ -7,8 +7,10 @@ import java.util.List;
 
 public interface Directorio {
     void insertarPersona(Persona persona);
-    void modificarPersona(Persona persona) throws SearchException;
-    void eliminarPersona(Long idPersona) throws SearchException;
-    Persona buscarPersona(Long idPersona) throws SearchException;
+    void modificarPersonabyID(Persona persona) throws SearchException;
+    void eliminarPersonabyID(Long idPersona) throws SearchException;
+    Persona buscarPersonabyID(Long idPersona) throws SearchException;
+    void eliminarPersonabyIdentificacion(String identificacion) throws SearchException;
+    Persona buscarPersonabyIdentificacion(String identificacion) throws SearchException;
     List<Persona> listarPersonas();
 }

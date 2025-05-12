@@ -10,4 +10,8 @@ public record PersonaDtoEstandar(String nombre, String apellidoPaterno, String a
     public static Persona toPersona(PersonaDtoEstandar persona){
         return new Persona(persona);
     }
+
+    public static PersonaDtoEstandar fromPersonaDto(Persona persona){
+        return new PersonaDtoEstandar(persona.getNombre(), persona.getApellidoPaterno(), persona.getApellidoMaterno(), persona.getIdentificacion());
+    }
 }

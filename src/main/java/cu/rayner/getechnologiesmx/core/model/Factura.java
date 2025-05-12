@@ -1,10 +1,12 @@
 package cu.rayner.getechnologiesmx.core.model;
 
+import cu.rayner.getechnologiesmx.core.dto.facturaDto.FacturaDtoEstandar;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +17,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Factura {
 
     @Id
@@ -34,4 +37,10 @@ public class Factura {
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_persona")
     private Persona persona;
+
+    public Factura(Persona persona, FacturaDtoEstandar facturadto) {
+        this.fecha = facturadto.fecha();
+        this.monto = facturadto.valor();
+        this.persona = persona;
+    }
 }

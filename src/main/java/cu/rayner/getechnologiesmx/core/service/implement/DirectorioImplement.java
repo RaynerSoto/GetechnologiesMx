@@ -25,7 +25,7 @@ public class DirectorioImplement implements Directorio {
     }
 
     @Override
-    public void modificarPersona(Persona persona) throws SearchException {
+    public void modificarPersonabyID(Persona persona) throws SearchException {
         if (!personaRespository.existsById(persona.getId())) {
             throw new SearchException("No se ha podido encontrar la persona a modificar");
         }
@@ -34,7 +34,7 @@ public class DirectorioImplement implements Directorio {
     }
 
     @Override
-    public void eliminarPersona(Long idPersona) throws SearchException {
+    public void eliminarPersonabyID(Long idPersona) throws SearchException {
         if (!personaRespository.existsById(idPersona)) {
             throw new SearchException("No se ha podido encontrar la persona a eliminar");
         }
@@ -43,11 +43,27 @@ public class DirectorioImplement implements Directorio {
     }
 
     @Override
-    public Persona buscarPersona(Long idPersona) throws SearchException {
+    public Persona buscarPersonabyID(Long idPersona) throws SearchException {
         if (!personaRespository.existsById(idPersona)) {
             throw new SearchException("No se ha podido encontrar la persona");
         }
         return personaRespository.findById(idPersona).get();
+    }
+
+    @Override
+    public void eliminarPersonabyIdentificacion(String identificacion) throws SearchException {
+        if (!personaRespository.existsByIdentificacionEquals(identificacion)) {
+            throw new SearchException("No se ha podido encontrar la persona a eliminar");
+        }
+        personaRespository.deleteByIdentificacionEquals(identificacion);
+    }
+
+    @Override
+    public Persona buscarPersonabyIdentificacion(String identificacion) throws SearchException {
+        if (!personaRespository.existsByIdentificacionEquals(identificacion)) {
+            throw new SearchException("No se ha podido encontrar la persona");
+        }
+        return personaRespository.findByIdentificacionEquals(identificacion).get();
     }
 
     @Override
