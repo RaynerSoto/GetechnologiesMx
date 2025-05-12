@@ -1,6 +1,7 @@
 package cu.rayner.getechnologiesmx.core.service.implement;
 
 import cu.rayner.getechnologiesmx.core.dto.facturaDto.FacturaDtoEstandar;
+import cu.rayner.getechnologiesmx.core.dto.facturaDto.FacturaDtoPersonaRetornar;
 import cu.rayner.getechnologiesmx.core.exception.SearchException;
 import cu.rayner.getechnologiesmx.core.model.Factura;
 import cu.rayner.getechnologiesmx.core.model.Persona;
@@ -36,7 +37,7 @@ public class VentasImplement implements Ventas {
     }
 
     @Override
-    public void buscarVenta(String identificadorPersona, FacturaDtoEstandar facturadto) throws SearchException {
+    public FacturaDtoPersonaRetornar buscarVenta(String identificadorPersona, FacturaDtoEstandar facturadto) throws SearchException {
         if (!personaRespository.existsByIdentificacionEquals(identificadorPersona)) {
             throw new SearchException("No se ha podido encontrar a la persona");
         }
@@ -46,6 +47,6 @@ public class VentasImplement implements Ventas {
         if (!factura.isPresent()) {
             throw new SearchException("No se ha podido encontrar la factura solicitada");
         }
-        return ResponseEntity.ok().body();
+        return FacturaDtoPersonaRetornar.fromFacturaPersona(factura.get(),factura.get().getPersona());
     }
 }
