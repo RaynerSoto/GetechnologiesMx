@@ -1,6 +1,7 @@
 package cu.rayner.getechnologiesmx.core.model;
 
 import cu.rayner.getechnologiesmx.core.dto.facturaDto.FacturaDtoEstandar;
+import cu.rayner.getechnologiesmx.core.utils.Validacion;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
@@ -42,5 +43,10 @@ public class Factura {
         this.fecha = facturadto.fecha();
         this.monto = facturadto.valor();
         this.persona = persona;
+    }
+
+    @PrePersist
+    public void validar(){
+        Validacion.validarElemento(this);
     }
 }
